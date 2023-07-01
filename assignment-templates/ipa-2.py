@@ -41,12 +41,12 @@ def shift_letter(letter, shift):
     for i in range(len(alphabet)):
         if alphabet[i] == letter:
             position = i + shift
-            if position > 25:
+            while position > 25:
                 position -= 26
-                new_letter = alphabet[position]
-            else: 
-                new_letter = alphabet[position]
+            new_letter = alphabet[position]
             return new_letter
+        else:
+            return ' '
 
 def caesar_cipher(message, shift):
     '''Caesar Cipher.
@@ -73,11 +73,11 @@ def caesar_cipher(message, shift):
     for letter in message:
         if letter == " ":
             new_letter = letter
-        elif (alphabet.index(letter) + shift) > 25:
-            new_index = alphabet.index(letter) + shift - 26
-            new_letter = alphabet[new_index]
+
         else:
             new_index = alphabet.index(letter) + shift
+            while new_index > 25:
+                new_index -= 26
             new_letter = alphabet[new_index]
         new_message += new_letter
     return new_message
@@ -114,6 +114,8 @@ def shift_by_letter(letter, letter_shift):
     for i in range(len(alphabet)):
         if alphabet[i] == letter_shift:
             shift_index = i
+        else:
+            return " "
     
     for i in range(len(alphabet)):
         if alphabet[i] == letter:
@@ -166,11 +168,9 @@ def vigenere_cipher(message, key):
                     position_m = alphabet.index(letter_m)
                     position_k = alphabet.index(key[message.index(letter_m)])
                     new_position = position_m + position_k
-                    if new_position > 25:
+                    while new_position > 25:
                         new_position -= 26
-                        new_message += alphabet[new_position]
-                    else: 
-                        new_message += alphabet[new_position]
+                    new_message += alphabet[new_position]
     if len(message) > len(key):
         new_key = ""
         while len(new_key) != len(message):    
@@ -180,16 +180,14 @@ def vigenere_cipher(message, key):
                     break
         for letter_m in message: 
                 if letter_m == " ":
-                    new_message += letter
+                    new_message += letter_m
                 elif letter_m in alphabet:  
                     position_m = alphabet.index(letter_m)
                     position_k = alphabet.index(new_key[message.index(letter_m)])
                     new_position = position_m + position_k
-                    if new_position > 25:
-                        new_position -= 26
-                        new_message += alphabet[new_position]
-                    else: 
-                        new_message += alphabet[new_position]
+                    while new_position > 25:
+                        new_position -= 26 
+                    new_message += alphabet[new_position]
         
     return new_message + new_key
 
@@ -297,8 +295,5 @@ def scytale_decipher(message, shift):
         while len(message) > number:
             decoded += message[number]
             number += shift
-    
-    while decoded[len(decoded) - 1] == "_":
-        decoded = decoded[:-1]
     
     return decoded
