@@ -77,19 +77,19 @@ def tic_tac_toe(board):
     # Stay within the function. Only use the parameters as input. The function should return your answer.
     for i in range(3):
         if board[i][0] == board[i][1] == board[i][2]:
-            return f"The winner is {board[i][0]}"
+            return board[i][0]
     
     for i in range(3):
         if board[0][i] == board[1][i] == board[2][i]:
-            return f"The winner is {board[0][i]}"    
+            return board[0][i]    
                          
     if board[0][0] == board[1][1] == board[2][2]:
-        return f"The winner is {board[0][0]}"
+        return board[0][0]
     elif board[0][2] == board[1][1] == board[2][0]:
-        return f"The winner is {board[0][2]}"
+        return board[0][2]
     else:
         return "NO WINNER"
-
+    
 def eta(first_stop, second_stop, route_map):
     '''ETA.
     25 points.
@@ -123,27 +123,27 @@ def eta(first_stop, second_stop, route_map):
     # Stay within the function. Only use the parameters as input. The function should return your answer.
     time = 0
 
-    for i in legs:
+    for i in route_map:
         for k in i:
             if i[0] == first_stop and k == first_stop:
-                first_position = list(legs).index(i)
+                first_position = list(route_map).index(i)
                 
-    for j in legs:
+    for j in route_map:
         for l in j:
             if j[1] == second_stop and l == second_stop:
-                last_position = list(legs).index(j)
+                last_position = list(route_map).index(j)
     
     if first_position > last_position:
-        for m in range(first_position,len(legs)):
-            stop = list(legs)[m]
-            time += legs[stop]["travel_time_mins"]
+        for m in range(first_position,len(route_map)):
+            stop = list(route_map)[m]
+            time += route_map[stop]["travel_time_mins"]
         for m in range(0, last_position + 1):
-            stop = list(legs)[m]
-            time += legs[stop]["travel_time_mins"]
+            stop = list(route_map)[m]
+            time += route_map[stop]["travel_time_mins"]
     
     else:
         for m in range(first_position,last_position + 1):
-            stop = list(legs)[m]
-            time += legs[stop]["travel_time_mins"]
+            stop = list(route_map)[m]
+            time += route_map[stop]["travel_time_mins"]
 
     return time
