@@ -45,7 +45,7 @@ def relationship_status(from_member, to_member, social_graph):
     elif to_member in social_graph[from_member]["following"]:
         return "follower"
     elif from_member in social_graph[to_member]["following"]:
-        return "followed"
+        return "followed by"
     else:
         return "no relationship"
 
@@ -75,20 +75,21 @@ def tic_tac_toe(board):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    for i in range(3):
-        if board[i][0] == board[i][1] == board[i][2]:
-            return board[i][0]
-    
-    for i in range(3):
-        if board[0][i] == board[1][i] == board[2][i]:
-            return board[0][i]    
-                         
-    if board[0][0] == board[1][1] == board[2][2]:
+    for row in board:
+        if all(cell == row[0] for cell in row):
+            return row[0]
+
+    for col in range(len(board[0])):
+        if all(board[row][col] == board[0][col] for row in range(len(board))):
+            return board[0][col]
+
+    if all(board[i][i] == board[0][0] for i in range(len(board))):
         return board[0][0]
-    elif board[0][2] == board[1][1] == board[2][0]:
-        return board[0][2]
-    else:
-        return "NO WINNER"
+
+    if all(board[i][len(board) - i - 1] == board[0][len(board) - 1] for i in range(len(board))):
+        return board[0][len(board) - 1]
+
+    return "NO WINNER"
     
 def eta(first_stop, second_stop, route_map):
     '''ETA.
