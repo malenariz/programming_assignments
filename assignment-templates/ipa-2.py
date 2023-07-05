@@ -163,20 +163,9 @@ def vigenere_cipher(message, key):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
+    
     alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
     new_message = ""
-    if len(message) == len(key): 
-        for letter_m in message: 
-                if letter_m == " ":
-                    new_message += letter_m
-                elif letter_m in alphabet:  
-                    position_m = alphabet.index(letter_m)
-                    position_k = alphabet.index(key[message.index(letter_m)])
-                    new_position = position_m + position_k
-                    while new_position > 25:
-                        new_position -= 26
-                    new_message += alphabet[new_position]
-        return new_message
     
     if len(message) > len(key):
         new_key = ""
@@ -185,17 +174,20 @@ def vigenere_cipher(message, key):
                 new_key += letter_k
                 if len(new_key) == len(message):
                     break
-        for letter_m in message: 
-                if letter_m == " ":
-                    new_message += letter_m
-                elif letter_m in alphabet:  
-                    position_m = alphabet.index(letter_m)
-                    position_k = alphabet.index(new_key[message.index(letter_m)])
-                    new_position = position_m + position_k
-                    while new_position > 25:
-                        new_position -= 26 
-                    new_message += alphabet[new_position]
-        return new_message
+        key = new_key
+
+    for letter_m in message: 
+        if letter_m == " ":
+            new_message += letter_m
+        elif letter_m in alphabet:  
+            position_m = alphabet.index(letter_m)
+            position_k = alphabet.index(key[message.index(letter_m)])
+            new_position = position_m + position_k
+            while new_position > 25:
+                new_position -= 26 
+            new_message += alphabet[new_position]
+    
+    return new_message
 
 
 def scytale_cipher(message, shift):
