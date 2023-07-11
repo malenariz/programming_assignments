@@ -168,23 +168,15 @@ def vigenere_cipher(message, key):
     new_message = ""
     
     if len(message) > len(key):
-        new_key = ""
-        while len(new_key) != len(message):    
-            for letter_k in key:
-                new_key += letter_k
-                if len(new_key) == len(message):
-                    break
-        key = new_key
+        key = key * (len(message) // len(key)) + key[:len(message) % len(key)]
 
-    for letter_m in message: 
+    for i, letter_m in enumerate(message): 
         if letter_m == " ":
             new_message += letter_m
         elif letter_m in alphabet:  
             position_m = alphabet.index(letter_m)
-            position_k = alphabet.index(key[message.index(letter_m)])
-            new_position = position_m + position_k
-            while new_position > 25:
-                new_position -= 26 
+            position_k = alphabet.index(key[i])
+            new_position = (position_m + position_k) % 26
             new_message += alphabet[new_position]
     
     return new_message
