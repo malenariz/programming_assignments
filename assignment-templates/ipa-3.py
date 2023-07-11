@@ -77,16 +77,24 @@ def tic_tac_toe(board):
     # Stay within the function. Only use the parameters as input. The function should return your answer.
     for row in board:
         if all(cell == row[0] for cell in row):
+            if row[0] == "":
+                return "NO WINNER"
             return row[0]
 
     for col in range(len(board[0])):
         if all(board[row][col] == board[0][col] for row in range(len(board))):
+            if board[0][col] == "":
+                return "NO WINNER"
             return board[0][col]
 
     if all(board[i][i] == board[0][0] for i in range(len(board))):
+        if board[0][0] == "":
+            return "NO WINNER"
         return board[0][0]
 
     if all(board[i][len(board) - i - 1] == board[0][len(board) - 1] for i in range(len(board))):
+        if board[0][len(board) - 1] == "":
+            return "NO WINNER"
         return board[0][len(board) - 1]
 
     return "NO WINNER"
